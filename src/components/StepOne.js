@@ -1,6 +1,12 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import store from "../store";
+import store, {
+  UPDATE_PROPERTY_NAME,
+  UPDATE_ADDRESS,
+  UPDATE_CITY,
+  UPDATE_STATE,
+  UPDATE_ZIP
+} from "../store";
 
 class StepOne extends Component {
   constructor() {
@@ -28,65 +34,137 @@ class StepOne extends Component {
     });
   }
 
-  handlePropertyName = addedPropertyName => {
-    this.setState({ property_name: addedPropertyName });
+  handlePropertyName = e => {
+    store.dispatch({
+      type: UPDATE_PROPERTY_NAME,
+      payload: e.target.value
+    });
   };
 
-  handleAddress = addedAddress => {
-    this.setState({ address: addedAddress });
+  handleAddress = e => {
+    store.dispatch({
+      type: UPDATE_ADDRESS,
+      payload: e.target.value
+    });
   };
 
-  handleCity = addedCity => {
-    this.setState({ city: addedCity });
+  handleCity = e => {
+    store.dispatch({
+      type: UPDATE_CITY,
+      payload: e.target.value
+    });
   };
 
-  handleState = addedState => {
-    this.setState({ state: addedState });
+  handleState = e => {
+    store.dispatch({
+      type: UPDATE_STATE,
+      payload: e.target.value
+    });
   };
 
-  handleZip = addedZip => {
-    this.setState({ zip: addedZip });
+  handleZip = e => {
+    store.dispatch({
+      type: UPDATE_ZIP,
+      payload: e.target.value
+    });
   };
+  // handlePropertyName = addedPropertyName => {
+  //   this.setState({ property_name: addedPropertyName });
+  // };
+
+  // handleAddress = addedAddress => {
+  //   this.setState({ address: addedAddress });
+  // };
+
+  // handleCity = addedCity => {
+  //   this.setState({ city: addedCity });
+  // };
+
+  // handleState = addedState => {
+  //   this.setState({ state: addedState });
+  // };
+
+  // handleZip = addedZip => {
+  //   this.setState({ zip: addedZip });
+  // };
+
+  saveChanges() {
+    store.dispatch({
+      type: UPDATE_PROPERTY_NAME,
+      payload: this.state.property_name
+    });
+    store.dispatch({
+      type: UPDATE_ADDRESS,
+      payload: this.state.address
+    });
+    store.dispatch({
+      type: UPDATE_CITY,
+      payload: this.state.city
+    });
+    store.dispatch({
+      type: UPDATE_STATE,
+      payload: this.state.state
+    });
+    store.dispatch({
+      type: UPDATE_ZIP,
+      payload: this.state.zip
+    });
+  }
 
   render() {
     return (
       <div className="Wizard">
         <h3>Add New Listing</h3>
+        {/* <Link to="/">
+          <button className="cancel-btn" onClick={this.handleCancel}>
+            Cancel
+          </button>
+        </Link> */}
         <div className="form">
           <form>
             <input
               placeholder="property name"
               className="form-property-name"
               value={this.state.property_name}
-              onChange={e => this.handlePropertyName(e.target.value)}
+              onChange={this.handlePropertyName}
+              // onChange={e => this.handlePropertyName(e.target.value)}
             />
             <input
               placeholder="address"
               className="form-address"
               value={this.state.address}
-              onChange={e => this.handleAddress(e.target.value)}
+              onChange={this.handleAddress}
+              // onChange={e => this.handleAddress(e.target.value)}
             />
             <input
               placeholder="city"
               className="form-city"
               value={this.state.city}
-              onChange={e => this.handleCity(e.target.value)}
+              onChange={this.handleCity}
+              // onChange={e => this.handleCity(e.target.value)}
             />
             <input
               placeholder="state"
               className="form-state"
               value={this.state.state}
-              onChange={e => this.handleState(e.target.value)}
+              onChange={this.handleState}
+              // onChange={e => this.handleState(e.target.value)}
             />
             <input
               placeholder="zip"
               className="form-zip"
               value={this.state.zip}
-              onChange={e => this.handleZip(e.target.value)}
+              onChange={this.handleZip}
+              // onChange={e => this.handleZip(e.target.value)}
             />
 
             <Link to="/wizard/step2">
-              <button className="next-step">Next Step</button>
+              <button
+                className="next-step"
+                // onClick={() => this.saveChanges()}
+              >
+                Next Step
+              </button>
             </Link>
           </form>
         </div>

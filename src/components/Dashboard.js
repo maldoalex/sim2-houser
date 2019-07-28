@@ -2,12 +2,14 @@ import React, { Component } from "react";
 import House from "./House";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import store, { UPDATE_HOUSES } from "../store";
 
 class Dashboard extends Component {
   constructor() {
     super();
+    const reduxState = store.getState();
     this.state = {
-      houses: []
+      houses: reduxState.houses
     };
   }
 
@@ -22,6 +24,15 @@ class Dashboard extends Component {
     });
   };
 
+  getHouses = () => {
+    axios.get("/api/properties").then(res => {
+      store.dispatch({
+        type: UPDATE_HOUSES,
+        payload: res.data
+      });
+    });
+  };
+
   componentDidMount() {
     axios
       .get("/api/properties")
@@ -32,6 +43,7 @@ class Dashboard extends Component {
         console.log("error");
         this.setState({ error: "error" });
       });
+    this.getHouses();
   }
 
   render() {

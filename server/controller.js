@@ -24,10 +24,28 @@ module.exports = {
   },
   addHouse: (req, res, next) => {
     const dbInstance = req.app.get("db");
-    const { property_name, address, city, state, zip } = req.body;
+    const {
+      property_name,
+      address,
+      city,
+      state,
+      zip,
+      image_url,
+      mortgage,
+      rent
+    } = req.body;
 
     dbInstance
-      .add_house([property_name, address, city, state, zip])
+      .add_house([
+        property_name,
+        address,
+        city,
+        state,
+        zip,
+        image_url,
+        mortgage,
+        rent
+      ])
       .then(() => res.sendStatus(200))
       .catch(error => {
         res.status(500).send({ msg: "error!" });

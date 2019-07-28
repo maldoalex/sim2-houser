@@ -10,6 +10,9 @@ class House extends Component {
           <h5>{this.props.house.city}</h5>
           <h5>{this.props.house.state}</h5>
           <h5>{this.props.house.zip}</h5>
+          <h5>{this.props.house.image_url}</h5>
+          <h5>{this.props.house.mortgage}</h5>
+          <h5>{this.props.house.rent}</h5>
         </div>
         <button
           className="delete-btn"
